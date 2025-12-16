@@ -17,7 +17,7 @@ const Page = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      
+
       // ✅ استخدام api.getAllReceipts
       const res = await api.getAllReceipts({ search, limit, page });
 
@@ -30,7 +30,7 @@ const Page = () => {
       setData(result.data || []);
       setTotal(result.total || 0);
       setTotalPages(result.totalPages || 1);
-      
+
     } catch (err) {
       console.error("❌ خطأ:", err);
       setData([]);
@@ -61,14 +61,14 @@ const Page = () => {
 
   return (
     <div>
-      <div className='container'> 
+      <div className='container'>
         <div className='top'>
           <p>الصفحة الرئيسة</p>
 
           <div className='topTols'>
             <div className='serch'>
-              <input 
-                type="search" 
+              <input
+                type="search"
                 placeholder="ابحث بالاسم أو الرقم..."
                 value={search}
                 onChange={(e) => {
@@ -77,12 +77,12 @@ const Page = () => {
                 }}
               />
               <button type="button">🔍</button>
-            </div> 
+            </div>
 
             <div className='count'>
-              <label>إظهار</label> 
-              <select 
-                name="limit" 
+              <label>إظهار</label>
+              <select
+                name="limit"
                 value={limit}
                 onChange={(e) => {
                   setLimit(e.target.value);
@@ -94,9 +94,9 @@ const Page = () => {
                 <option value="50">50</option>
                 <option value="100">100</option>
               </select>
-            </div> 
+            </div>
           </div>
-        </div>  
+        </div>
 
         {loading ? (
           <div style={{ textAlign: "center", padding: "50px", fontSize: "18px", color: "#666" }}>
@@ -127,13 +127,13 @@ const Page = () => {
                       key={rowIndex}
                       className={rowIndex % 2 === 0 ? "even-row" : "odd-row"}
                     >
-                      <td>{(page - 1) * limit + rowIndex + 1}</td>
-                      <td>{person.rank}</td>
-                      <td>{person.name}</td>
-                      <td>{person.number}</td>
-                      
+                      <td data-label="عدد">{(page - 1) * limit + rowIndex + 1}</td>
+                      <td data-label="الرتبة">{person.rank}</td>
+                      <td data-label="الاسم">{person.name}</td>
+                      <td data-label="الرقم">{person.number}</td>
+
                       {/* المواد المستلمة */}
-                      <td>
+                      <td data-label="المواد المستلمة">
                         <div style={{ fontSize: "11px", lineHeight: "1.6" }}>
                           {person.receivedItems.map((item, idx) => (
                             <div key={idx} style={{ marginBottom: "4px" }}>
@@ -144,10 +144,10 @@ const Page = () => {
                       </td>
 
                       {/* المواد في العهدة */}
-                      <td>
+                      <td data-label="المواد في العهدة">
                         {person.itemsInCustody.length > 0 ? (
-                          <div style={{ 
-                            fontSize: "11px", 
+                          <div style={{
+                            fontSize: "11px",
                             lineHeight: "1.6",
                             backgroundColor: "#fff3cd",
                             padding: "8px",
@@ -161,9 +161,9 @@ const Page = () => {
                             ))}
                           </div>
                         ) : (
-                          <div style={{ 
-                            fontSize: "12px", 
-                            color: "#28a745", 
+                          <div style={{
+                            fontSize: "12px",
+                            color: "#28a745",
                             fontWeight: "bold",
                             backgroundColor: "#d4edda",
                             padding: "6px",
@@ -176,7 +176,7 @@ const Page = () => {
                       </td>
 
                       {/* سندات الاستلام */}
-                      <td>
+                      <td data-label="سند استلام">
                         {person.receiptReceipts.length > 0 ? (
                           <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                             {person.receiptReceipts.map((receipt, idx) => (
@@ -204,7 +204,7 @@ const Page = () => {
                       </td>
 
                       {/* سندات التسليم */}
-                      <td>
+                      <td data-label="سند تسليم">
                         {person.deliveryReceipts.length > 0 ? (
                           <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                             {person.deliveryReceipts.map((delivery, idx) => (
@@ -227,8 +227,8 @@ const Page = () => {
                             ))}
                           </div>
                         ) : (
-                          <div style={{ 
-                            fontSize: "12px", 
+                          <div style={{
+                            fontSize: "12px",
                             color: "#856404",
                             backgroundColor: "#fff3cd",
                             padding: "6px",
@@ -245,6 +245,69 @@ const Page = () => {
                 </tbody>
               </table>
             </div>
+{/* Mobile Cards */}
+<div className="mobile-cards">
+  {data.map((person, index) => (
+    <div key={index} className="mobile-card">
+
+      <div className="mobile-card-header">
+        <span>{person.name}</span>
+        <small>#{person.number}</small>
+      </div>
+
+      <div className="mobile-row">
+        <strong>الرتبة:</strong> {person.rank}
+      </div>
+
+      <div className="mobile-section">
+        <div className="mobile-section-title">📦 المواد المستلمة</div>
+        {person.receivedItems.map((item, idx) => (
+          <div key={idx} className="mobile-row">
+            • {item.name} ({item.type}) – كمية: {item.quantity}
+          </div>
+        ))}
+      </div>
+
+      <div className="mobile-section">
+        <div className="mobile-section-title">🔒 المواد في العهدة</div>
+        {person.itemsInCustody.length > 0 ? (
+          person.itemsInCustody.map((item, idx) => (
+            <div key={idx} className="mobile-row">
+              • {item.name} – كمية: {item.quantity}
+            </div>
+          ))
+        ) : (
+          <div className="mobile-row" style={{ color: "#28a745", fontWeight: "bold" }}>
+            ✅ تم التسليم الكامل
+          </div>
+        )}
+      </div>
+
+      <div className="mobile-buttons">
+        {person.receiptReceipts.map((r, idx) => (
+          <button
+            key={idx}
+            style={{ backgroundColor: "#255aeb", color: "#fff", border: "none" }}
+            onClick={() => window.open(getFileUrl(`/receipts/${r.fileName}`), "_blank")}
+          >
+            📄 سند استلام {idx + 1}
+          </button>
+        ))}
+
+        {person.deliveryReceipts.map((d, idx) => (
+          <button
+            key={idx}
+            style={{ backgroundColor: "#4caf50", color: "#fff", border: "none" }}
+            onClick={() => window.open(getFileUrl(`/delivery/${d.fileName}`), "_blank")}
+          >
+            📄 سند تسليم {idx + 1}
+          </button>
+        ))}
+      </div>
+
+    </div>
+  ))}
+</div>
 
             {/* Pagination */}
             <div style={{
