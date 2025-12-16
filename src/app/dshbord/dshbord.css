@@ -87,7 +87,9 @@
 .field > div > input {
   flex: 1;
 }
-
+.mobile-user-cards {
+  display: none;
+}
 .field > div > button {
   padding: 0 15px;
   background-color: #255aeb;
@@ -425,6 +427,7 @@
   }
 
   .mobile-user-cards {
+    direction: rtl;
     display: flex;
     flex-direction: column;
     gap: 12px;
