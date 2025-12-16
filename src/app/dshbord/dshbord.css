@@ -413,4 +413,77 @@
   .sidebar-hidden .container {
     margin-right: 0; /* ✅ إلغاء المسافة عند إخفاء Sidebar */
   }
+}  
+/* =========================
+   📱 Mobile Cards – Dashboard
+   ========================= */
+@media (max-width: 768px) {
+
+  /* إخفاء الجدول في الجوال */
+  .table-wrapper {
+    display: none;
+  }
+
+  .mobile-user-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+  }
+
+  .mobile-user-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .mobile-user-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #1d45d8;
+    font-size: 14px;
+  }
+
+  .mobile-user-row {
+    font-size: 13px;
+    margin-bottom: 6px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .mobile-user-role {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .mobile-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .mobile-actions button {
+    flex: 1;
+    padding: 8px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+
+  .mobile-password-input {
+    width: 100%;
+    margin-top: 6px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 2px solid #255aeb;
+    font-size: 13px;
+  }
 }
