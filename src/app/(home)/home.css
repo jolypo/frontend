@@ -187,6 +187,84 @@ gap: 2rem;
   }
 }
 
+/* =========================
+   📱 Mobile Card Layout
+   ========================= */
+@media (max-width: 768px) {
+
+  /* إخفاء الجدول */
+  .table-wrapper {
+    display: none;
+  }
+
+  /* حاوية البطاقات */
+  .mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+  }
+
+  /* البطاقة */
+  .mobile-card {
+    direction: rtl;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .mobile-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .mobile-card-header span {
+    color: #255aeb;
+  }
+
+  .mobile-row {
+    font-size: 12px;
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+
+  .mobile-row strong {
+    color: #333;
+  }
+
+  .mobile-section {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed #ddd;
+  }
+
+  .mobile-section-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #555;
+  }
+
+  .mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .mobile-buttons button {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px;
+    border-radius: 6px;
+  }
+}
 
 
 
