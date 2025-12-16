@@ -339,8 +339,88 @@ const Dashboard = () => {
               ))
             )}
           </tbody>
+          
         </table>
       </div>
+      {/* 📱 Mobile User Cards */}
+<div className="mobile-user-cards">
+  {users.map((user, index) => (
+    <div key={user._id || index} className="mobile-user-card">
+
+      <div className="mobile-user-header">
+        <span>{user.username}</span>
+        <small>#{index + 1}</small>
+      </div>
+
+      <div className="mobile-user-row">
+        <strong>📧 الإيميل:</strong> {user.email}
+      </div>
+
+      <div
+        className="mobile-user-role"
+        style={{
+          backgroundColor: user.role === "admin" ? "#e3f2fd" : "#f3e5f5",
+          color: user.role === "admin" ? "#1976d2" : "#7b1fa2",
+        }}
+      >
+        {user.role}
+      </div>
+
+      {/* تعديل كلمة المرور */}
+      {editIndex === index && (
+        <input
+          type="password"
+          className="mobile-password-input"
+          placeholder="كلمة المرور الجديدة"
+          value={editPassword}
+          onChange={(e) => setEditPassword(e.target.value)}
+          minLength={6}
+          disabled={loading}
+        />
+      )}
+
+      <div className="mobile-actions">
+        {editIndex === index ? (
+          <>
+            <button
+              className="confo_btn"
+              onClick={() =>
+                handleUpdatePassword(user._id, editPassword, index)
+              }
+              disabled={loading}
+            >
+              {loading ? "⏳" : "✅ حفظ"}
+            </button>
+
+            <button
+              className="update_btn"
+              style={{ backgroundColor: "#e25454" }}
+              onClick={() => {
+                setEditIndex(null);
+                setEditPassword("");
+              }}
+              disabled={loading}
+            >
+              ❌ إلغاء
+            </button>
+          </>
+        ) : (
+          <button
+            className="update_btn"
+            onClick={() => {
+              setEditIndex(index);
+              setEditPassword("");
+            }}
+            disabled={loading}
+          >
+            ✏️ تعديل
+          </button>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };
