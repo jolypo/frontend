@@ -55,7 +55,9 @@ gap: 2rem;
   height: 2.1rem;
   cursor: pointer;
 }
-
+.mobile-cards {
+  display: none;
+}
 /* خانة العداد  */
 .count{
   display: flex;
